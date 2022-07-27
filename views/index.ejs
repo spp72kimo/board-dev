@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("template/head") %>
+  </head>
+  <%- include("template/nav") %>
+  <body>
+    <div class="container">
+      <h1>Hello!! <%= username %></h1>
+      <h2>
+        <% if(username) { %>
+        <h3>您已經登入</h3>
+        <%- include("template/errorMessage") %>
+        <form action="/addComment" class="mb-3" method="post">
+          <textarea
+            name="content"
+            class="form-control mb-2"
+            cols="30"
+            rows="5"
+          ></textarea>
+          <div class="d-flex justify-content-end">
+            <input
+              type="submit"
+              class="btn btn-outline-primary"
+              value="新增留言"
+            />
+          </div>
+        </form>
+        <% } else { %>
+        <h3>您尚未登入</h3>
+        <% } %>
+      </h2>
+      <% results.forEach(item => { %>
+      <div class="card mb-2" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title"><%= item.User.nickname %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= item.createdAt %></h6>
+          <p class="card-text"><%= item.content %></p>
+          <% if(username && username === item.User.username) { %>
+          <a href="/edit/<%= item.id %>" class="card-link">Modify</a>
+          <a href="/comment_delete/<%= item.id %>" class="card-link">Delete</a>
+          <% } %>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("template/head") %>
+  </head>
+  <%- include("template/nav") %>
+  <body>
+    <div class="container">
+      <h1>Hello!! <%= username %></h1>
+      <h2>
+        <% if(username) { %>
+        <h3>您已經登入</h3>
+        <%- include("template/errorMessage") %>
+        <form action="/edit" method="post">
+          <textarea name="content" class="form-control mb-2" cols="30" rows="5">
+<%= content %></textarea
+          >
+          <input type="hidden" name="cid" value="<%= id %> " />
+          <div class="d-flex justify-content-end">
+            <input
+              type="submit"
+              class="btn btn-outline-primary"
+              value="修改留言"
+            />
+          </div>
+        </form>
+        <% } else { %>
+        <h3>您尚未登入</h3>
+        <% } %>
+      </h2>
+    </div>
+  </body>
+</html>
